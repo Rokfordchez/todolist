@@ -2,9 +2,21 @@ from django.shortcuts import render,redirect
 from .models import TodoList, Category
 from django.contrib import messages
 from .forms import UserRegisterForm
+import threading
+import time
+
+def update_page(request):
+    while True:
+        checkedlist = request.GET.getlist('checkedbox')
+        print(checkedlist)
+        time.sleep(20)
+
+
+
 
 def index(request): #the index view
     if request.user.is_authenticated == True:
+        print(request.user)
         todos = TodoList.objects.filter(user=request.user) #quering all todos with the object manager
         categories = Category.objects.all() #getting all categories with object manager
         if request.method == "POST": #checking if the request method is a POST
@@ -21,19 +33,24 @@ def index(request): #the index view
                 print(request.POST)
                 print(request.POST['checkedbox'])
                 print(request.POST.get('checkedbox'))
+                print(request.POST.getlist('checkedbox'))
                 checkedlist = request.POST.getlist('checkedbox') #checked todos to be deleted
                 for todo_id in checkedlist:
                     todo = TodoList.objects.get(id=int(todo_id)) #getting todo id
                     todo.delete() #deleting todo
         # print(dict(request.POST))
-        print(request.user)
+        # print(request.content_params)
+        # print(request.POST.getlist('checkedbox'))
+        # update_thread  = threading.Thread(target=update_page, kwargs={'request':request})
+        # update_thread.start()
         return render(request, "index.html", {"todos": todos, "categories":categories})
     else:
-        return redirect("register")
+        return redirect("login")
 
 
 def register(request):
     if request.method == 'POST':
+        print(request.POST)
         form = UserRegisterForm(request.POST)
         if form.is_valid():
             form.save()

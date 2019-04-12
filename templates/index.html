@@ -25,7 +25,7 @@
                 </div>
                 <div class="inputContainer half last">
                     <i class="fa fa-caret-down selectArrow"></i>
-                    <select id="category" class="taskCategory" name="category_select">
+                    <select id="category" class="taskCategory" name="category_select" required>
                     <option class="disabled" value="">Choose a category</option>
                     {% for category in categories %}
                         <option class="" value="{{ category.name }}" name="{{ category.name }}">{{ category.name }}</option>
@@ -34,7 +34,7 @@
                     <label for="category">Category</label>
                 </div>
                 <div class="inputContainer half last right">
-                    <input type="date" id="dueDate" class="taskDate" name="date">
+                    <input type="date" id="dueDate" class="taskDate" name="date" required>
                     <label for="dueDate">Due Date</label>
                 </div>
                 <div class="row">
@@ -44,7 +44,7 @@
             <ul class="taskList">
             {% for todo in todos %} <!-- django template lang - for loop -->
                 <li class="taskItem">
-                    <input type="checkbox" class="taskCheckbox" name="checkedbox" id="{{ todo.id }}" value="{{ todo.id }}">
+                    <input type="Checkbox" class="taskCheckbox" name="checkedbox" id="{{ todo.id }}" value="{{ todo.id }}">
                     <label for="{{ todo.id }}"><span class="complete-">{{ todo.title }}</span></label>
                     <span class="category-{{ todo.category }}">{{ todo.category }}</span>
                     <strong class="taskDate"><i class="fa fa-calendar"></i>{{ todo.created }} - {{ todo.due_date }}</strong>
