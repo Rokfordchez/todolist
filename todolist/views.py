@@ -50,18 +50,17 @@ def index(request): #the index view
 def check(request):
     print('check')
     if request.method == 'GET':
-        checked = request.GET['checkedbox']
-        l = TodoList.obejcts.getlist(pk=checked)  # getting the checked
-        for i in l:
-            if i.checkbox == True:
-                i.checkbox = False
-                res = False
-            else:
-                i.checkbox = True
-                res = True
-            i.save()  # saving it to store in database
-    return HttpResponse(res)
-
+        checked = request.GET['todo_id']
+        l = TodoList.objects.get(pk=checked)  # getting the checked
+        if l.checkbox == True:
+            l.checkbox = False
+            res = False
+        else:
+            l.checkbox = True
+            res = True
+        l.save()  # saving it to store in database
+    # return HttpResponse(res)
+    pass
 
 def register(request):
     if request.method == 'POST':

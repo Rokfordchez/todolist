@@ -44,9 +44,9 @@
             <ul class="taskList">
             {% for todo in todos %} <!-- django template lang - for loop -->
                 <li class="taskItem">
-                    <div class="task-box">
+                    <!--<div class="task-box">-->
                     <input type="Checkbox" class="taskCheckbox" name="checkedbox" id="{{ todo.id }}" value="{{ todo.id }}" {% if todo.checkbox == True %}checked{% endif %}>
-                    </div>
+                    <!--</div>-->
                     <label for="{{ todo.id }}"><span class="complete-">{{ todo.title }}</span></label>
                     <span class="category-{{ todo.category }}">{{ todo.category }}</span>
                     <strong class="taskDate"><i class="fa fa-calendar"></i>{{ todo.created }} - {{ todo.due_date }}</strong>
@@ -57,25 +57,28 @@
             </div><!-- content -->
  </div><!-- container -->
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-<script type="text/javascript">
-$('.task-box input[type="checkbox"]').click(function (event){
-var catid;
-catid = $(this).attr("id");
-$.ajax(
-{
-    type:"GET",
-    url: "/check",
-    data:{
-             todo.id: catid
-    },
-    success: function( data )
-    {
-    $('#task-box ').html(data)
-    }
- })
-});
-</script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+        $('.taskCheckbox').click(function (event){
+        var catid;
+        catid = $(this);
+        $.ajax(
+        {
+            type:"GET",
+            url: "check/",
+            data:{
+                     'todo_id': catid.attr('id')
+            },
+            <!--success: function( data )-->
+            <!--{-->
+            <!--$('#task-box ').html(data)-->
+            <!--}-->
+         })
+        });
+    console.log( "ready!" );
+    });
+    </script>
 </body>
 </html>
