@@ -2,8 +2,7 @@
 This is an example Django app, it's availible to create todolist for authorization user
 
 You can view a working version of this app
-[here](http://https://tododjango.herokuapp.com)
-First you need to sign up. API use generic user model.
+[here](https://tododjango.herokuapp.com).
 
 ## Features
 
